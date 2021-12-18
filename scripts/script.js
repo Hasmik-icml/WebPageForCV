@@ -119,6 +119,20 @@ document.querySelector(".add-new-user").addEventListener("click", function (even
   window.location.replace("./index.html");
 });
 
+// removing selected user
+document.querySelector("#remove-user").addEventListener("click", function (event) {
+  alert("Are you sure to delete?");
+  event.preventDefault();
+  let searchId = window.location.hash.split("=");
+  console.log(searchId);
+  let result = persons.filter(function (person) {
+    return "" + person.id !== searchId[1];
+  });
+  console.log(result);
+  saveToStorage(result);
+  window.location.replace("./index.html");
+});
+
 
 function saveToStorage(data) {
   let stringifyData = JSON.stringify(data);
