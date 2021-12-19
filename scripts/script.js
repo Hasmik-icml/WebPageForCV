@@ -32,7 +32,7 @@ window.addEventListener("hashchange", function () {
 
     let searchId = window.location.hash.split("=");
     for (let person of persons) {
-      if ("" + person.id === searchId[1]) {
+      if ((person.id).toString() === searchId[1].toString()) {
         addUserData(person);
       }
     }
@@ -126,7 +126,7 @@ document.querySelector("#remove-user").addEventListener("click", function (event
   let searchId = window.location.hash.split("=");
   console.log(searchId);
   let result = persons.filter(function (person) {
-    return "" + person.id !== searchId[1];
+    return (person.id).toString() === searchId[1].toString();
   });
   console.log(result);
   saveToStorage(result);
