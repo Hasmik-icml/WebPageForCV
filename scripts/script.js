@@ -121,19 +121,23 @@ document.querySelector(".add-new-user").addEventListener("click", function (even
 
 // removing selected user
 document.querySelector("#remove-user").addEventListener("click", function (event) {
-  alert("Are you sure to delete?");
   event.preventDefault();
-  
+
+  let confirmStatus = confirm("Are you sure to delete?");
   let searchId = window.location.hash.split("=");
-  // console.log(searchId);
-  let result = persons.filter(function (person) {
-    return (person.id).toString() === searchId[1].toString();
-  });
-  console.log(result);
-  saveToStorage(result);
-  window.location.replace("./index.html");
+
+  if (confirmStatus) {
+    removeFromStorage(searchId);
+    window.location.replace("./index.html");
+  }
 });
 
+function removeFromStorage(searchId) {
+  let result = persons.filter(function (person) {
+    return (person.id).toString() !== searchId[1].toString();
+  });
+  saveToStorage(result);
+}
 
 function saveToStorage(data) {
   let stringifyData = JSON.stringify(data);
