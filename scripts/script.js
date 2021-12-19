@@ -123,8 +123,9 @@ document.querySelector(".add-new-user").addEventListener("click", function (even
 document.querySelector("#remove-user").addEventListener("click", function (event) {
   alert("Are you sure to delete?");
   event.preventDefault();
+  
   let searchId = window.location.hash.split("=");
-  console.log(searchId);
+  // console.log(searchId);
   let result = persons.filter(function (person) {
     return (person.id).toString() === searchId[1].toString();
   });
