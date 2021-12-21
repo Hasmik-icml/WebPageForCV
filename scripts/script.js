@@ -21,18 +21,22 @@ function initGrid() {
 }
 
 
-window.addEventListener("hashchange", function () {
-
+window.addEventListener("hashchange", function (event) {
+event.preventDefault();
   let container = document.querySelector(".cardBox");
   let personalPage = document.querySelector(".personal_page");
   let aboutPerson = document.querySelector(".about");
   let newPerson = document.querySelector(".add-new");
+  
 
   if (window.location.hash.includes("cv_Page")) {
     container.classList.add("hidden");
     personalPage.classList.remove("hidden");
 
     let searchId = window.location.hash.split("=");
+
+   window.location.reload(false);
+   
 
     for (let person of persons) {
       if ((person.id).toString() === searchId[1].toString()) {
@@ -81,24 +85,25 @@ function showAboutPage() {
 
 //adding users data in cv page
 function addUserData(persons) {
+  console.log(persons.workExperienceDat);
 
   console.log(persons);
   document.querySelector(".cvName").innerHTML = persons.firstName + " " + persons.lastName;
-  document.querySelector(".emailAddress").innerHTML = persons.email;
-  document.querySelector(".phoneNumber").innerHTML = persons.phone;
+  document.querySelector(".emailAddress").innerHTML = (persons.email || "not filled");
+  document.querySelector(".phoneNumber").innerHTML = (persons.phone || "not filled");
 
-  document.querySelector(".education").innerHTML = persons.education;
-  document.querySelector(".educationDate").innerHTML = persons.educationDate;
-  document.querySelector(".profession").innerHTML = persons.profession;
+  document.querySelector(".education").innerHTML = (persons.education || "not filled");
+  document.querySelector(".educationDate").innerHTML = (persons.educationDate || "not filled");
+  document.querySelector(".profession").innerHTML = (persons.profession || "not filled");
 
 
-  document.querySelector(".trainings0").innerHTML = persons.trainings;
-  document.querySelector(".trainingsDate0").innerHTML = persons.trainingsDate;
-  document.querySelector(".trainingName").innerHTML = persons.trainingName;
+  document.querySelector(".trainings0").innerHTML = (persons.trainings || "not filled");
+  document.querySelector(".trainingsDate0").innerHTML = (persons.trainingsDate || "not filled");
+  document.querySelector(".trainingName").innerHTML = (persons.trainingName || "not filled");
 
-  document.querySelector(".workExperience").innerHTML = persons.workExperience;
-  document.querySelector(".workExperienceDate").innerHTML = persons.workExperienceDate;
-  document.querySelector(".position").innerHTML = persons.position;
+  document.querySelector(".workExperience").innerHTML = (persons.workExperience || "not filled");
+  document.querySelector(".workExperienceDate").innerHTML = (persons.workExperienceDate || "not filled");
+  document.querySelector(".position").innerHTML = (persons.position || "not filled");
 
   document.querySelector(".personImg").setAttribute("src", persons.image || "./img/person-icon.jpg");
 }
@@ -141,7 +146,7 @@ function removeFromStorage(searchId) {
   let result = persons.filter(function (person) {
     return (person.id).toString() !== searchId[1].toString();
   });
-  saveToStorage(result);
+  saveToStorage(result); 
 }
 
 function saveToStorage(data) {
