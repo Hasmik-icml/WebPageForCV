@@ -25,12 +25,15 @@ window.addEventListener("hashchange", function () {
 
   let container = document.querySelector(".cardBox");
   let personalPage = document.querySelector(".personal_page");
+  let aboutPerson = document.querySelector(".about");
+  let newPerson = document.querySelector(".add-new");
 
   if (window.location.hash.includes("cv_Page")) {
     container.classList.add("hidden");
     personalPage.classList.remove("hidden");
 
     let searchId = window.location.hash.split("=");
+
     for (let person of persons) {
       if ((person.id).toString() === searchId[1].toString()) {
         addUserData(person);
@@ -40,6 +43,8 @@ window.addEventListener("hashchange", function () {
   } else {
     container.classList.remove("hidden");
     personalPage.classList.add("hidden");
+    aboutPerson.classList.add('hidden');
+    newPerson.classList.add('hidden');
   }
   if (window.location.hash.includes("about")) {
     showAboutPage();
